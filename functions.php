@@ -46,3 +46,9 @@ function ofitel_nav_class($classes, $item){
     return $classes;
 }
 add_filter('nav_menu_css_class' , 'ofitel_nav_class' , 10 , 2);
+
+function show_post($path) {
+    $post = get_page_by_path($path);
+    $content = apply_filters('the_content', $post->post_content);
+    echo $content;
+}

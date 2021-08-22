@@ -16,7 +16,7 @@
         </p>
         <hr>
         <!-- Date/Time -->
-        <p>Publicado <?php the_date();?> </p>
+        <p>Publicadoooo <?php the_date();?> </p>
         <hr>
         <!-- Preview Image -->
         <?php the_post_thumbnail('destacada',array( 'class' => 'img-fluid rounded' )); ?>
@@ -24,6 +24,7 @@
         <!-- Post Content -->
         <?php the_content(); ?>
         <hr>
+        
         <?php endwhile; else : ?>
             <p>Lo siento, no hemos encontrado ningún post.</p>
         <?php endif; ?>
