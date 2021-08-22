@@ -1,54 +1,49 @@
 <?php
-/**
- * Ofitel functions and definitions
- */
 
-//Tamaño de imagen 
-add_image_size( 'destacada', 750, 300,true );
+spl_autoload_register( function($classname) {
 
-// Etiqueta de titulo 
-add_theme_support( 'title-tag' );
+    $class      = str_replace( '\\', DIRECTORY_SEPARATOR, strtolower($classname) ); 
+    $classpath  = dirname(__FILE__) .  DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . $class . '.php';
+    
+    if ( file_exists( $classpath) ) {
+        include_once $classpath;
+    }
+   
+} );
 
-//Registrar estilos
-function raiola_enqueue_styles() {
-	//Style.css
-	wp_enqueue_style( 'style', get_stylesheet_uri() );
-	// Registrar bootstrap
-	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . 'https://serv4.raiolanetworks.es/css/bootstrap.min.css',false,'1.1','all');
+add_action( 'wp_enqueue_scripts', 'ofitel_enqueue_styles' );
+function ofitel_enqueue_styles() {
+    wp_enqueue_style( 'child-style', get_stylesheet_uri(),
+        array( 'parenthandle' ), 
+        wp_get_theme()->get('Version') // this only works if you have Version in the style header
+    );
 }
-add_action( 'wp_enqueue_scripts', 'raiola_enqueue_styles');
 
-// Registrar Scripts
-function raiola_enqueue_scripts() {
-	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . 'https://serv5.raiolanetworks.es/js/bootstrap.bundle.min.js', array( 'jquery' ) );
+add_shortcode('ofitel_horario', 'shortcode_ofitel_horario');
+function shortcode_ofitel_horario() {
+    return '<p>Lunes a Viernes: 10.00h - 14.00h y 17:00h - 20.00h</p>';
 }
-add_action( 'wp_enqueue_scripts', 'raiola_enqueue_scripts');
 
-add_theme_support( 'custom-logo', array(
-    //ALTO
-    'height'      => 50,
-    //ANCHO
-    'width'       => 250,
-    //PERMITIR FLEXIBILIDAD EN EL TAMAÑO
-	'flex-height' => true,
-    'flex-width'  => true,
-    //
-	'header-text' => array( 'site-title', 'site-description' ),
-) );
-
-function registrar_menu() {
-	register_nav_menu( 'menu-principal', 'Menu Principal' );
+add_shortcode('ofitel_telefono', 'shortcode_ofitel_telefono');
+function shortcode_ofitel_telefono() {
+    return '<a href="tel:956461895"><nobr>956&nbsp;46&nbsp;18&nbsp;95</nobr></a>';
 }
-add_action( 'after_setup_theme', 'registrar_menu');
 
-function ofitel_nav_class($classes, $item){
-    $classes[] = 'nav-link';
-    return $classes;
-}
-add_filter('nav_menu_css_class' , 'ofitel_nav_class' , 10 , 2);
+add_action( 'wp_enqueue_scripts', 'add_ofitel_scripts' );
+function add_ofitel_scripts() {
+    wp_register_style( 'ofitelFormCSS', get_stylesheet_directory_uri().'/style.css', array(), 1.0, 'all');
+    wp_register_style( 'ofitelBootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+    wp_register_style( 'ofitelBootstraptheme', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css');
+    wp_enqueue_style( 'ofitelFormCSS' );
+    wp_enqueue_style( 'ofitelBootstrap' );
+    wp_enqueue_style( 'ofitelBootstraptheme' );
+    wp_register_script( 'ofitelFormJS', get_stylesheet_directory_uri().'/form.js', array ( 'jquery'), 1.1, false);
+    wp_enqueue_script( 'ofitelFormJS');
+    $translation_array = array( 'templateUrl' => get_stylesheet_directory_uri() );
+    wp_localize_script( 'ofitelFormJS', 'ofitel_object', $translation_array );    
+}   
 
-function show_post($path) {
-    $post = get_page_by_path($path);
-    $content = apply_filters('the_content', $post->post_content);
-    echo $content;
+add_action( 'wp_enqueue_scripts', 'console_log_ofitel' );
+function console_log_ofitel($data) {
+    printf('<script>console.log(%s);</script>', json_encode($data));
 }

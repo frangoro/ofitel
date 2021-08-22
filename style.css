@@ -1,22 +1,14 @@
 /*
-Theme Name: Ofitel
-Theme URI: https://ofiteldigital.com
-Author: frangoro
-Description: Theme designed for the Ofitel Digital web site.
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ Theme Name:   Astra Child - OfitelDigital V2
+ Theme URI:    http://ofiteldigital.com/
+ Description:  Astra Child Theme
+ Author:       frangoro
+ Author URI:   https://github.com/frangoro
+ Template:     astra
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+ Text Domain:  astra
 */
 
-.page-numbers {
-    position: relative;
-    display: inline-block;
-    padding: .5rem .75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #007bff;
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-}
-.ofitel-paginacion {
-    text-align: center; 
-}

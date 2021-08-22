@@ -1,45 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+/**
+ * The header for Ofitel Theme.
+ *
+ * This is the template that displays all of the <head> section and everything up until <div id="content">
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * @package Ofitel
+ * @since 1.0.0
+ */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+?><!DOCTYPE html>
+<?php astra_html_before(); ?>
+<html <?php language_attributes(); ?>>
 <head>
+	<?php astra_head_top(); ?>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <?php wp_head(); ?>
+	<?php wp_head(); ?>
+	<?php astra_head_bottom(); ?>
 
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php astra_schema_body(); ?> <?php body_class(); ?>>
+<?php astra_body_top(); ?>
+<?php wp_body_open(); ?>
+<div 
+<?php
+	echo astra_attr(
+		'site',
+		array(
+			'id'    => 'page',
+			'class' => 'hfeed site',
+		)
+	);
+	?>
+>
+	<a class="skip-link screen-reader-text" href="#content"><?php echo esc_html( astra_default_strings( 'string-header-skip-link', false ) ); ?></a>
+	<?php 
+	astra_header_before(); 
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <?php the_custom_logo(); ?>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <?php
-      $menu_ofitel = array(
-            'menu'            => 'menu-principal',
-            'container'       => 'div',
-            'container_class' => 'collapse navbar-collapse',
-            'container_id'    => 'navbarResponsive',
-            'menu_class'      => 'navbar-nav ml-auto',
-            'menu_id'         => '',
-            'echo'            => true,
-            'fallback_cb'     => 'wp_page_menu',
-            'before'          => '',
-            'after'           => '',
-            'link_before'     => '',
-            'link_after'      => '',
-            'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-            'item_spacing'    => 'preserve',
-            'depth'           => 0,
-            'walker'          => '',
-            'theme_location'  => '',
-        );
-        wp_nav_menu($menu_ofitel);
-        ?>
-    </div>
-  </nav>
+	astra_header(); 
+
+	astra_header_after();
+
+	astra_content_before(); 
+	?>
+	<div id="content" class="site-content">
+		<div class="ast-container">
+		<?php astra_content_top(); ?>
